@@ -1,0 +1,9 @@
+ INSERT TO LINE 90 IN inventoryFunction.php (JIG IMS)   
+
+$stmtUUID = $conn->prepare("SELECT item_uuid FROM inventory WHERE item = ? AND description = ? AND item_uuid IS NOT NULL AND item_uuid != '' LIMIT 1");
+    $stmtUUID->bind_param("ss", $item, $description);
+    $stmtUUID->execute();
+    $resUUID = $stmtUUID->get_result();
+    $existing = $resUUID->fetch_assoc();
+    $item_uuid = ($existing) ? $existing['item_uuid'] : uniqid('JIG-');
+    
